@@ -58,7 +58,7 @@ export async function streamChat({
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
         "HTTP-Referer": window.location.origin,
-        "X-Title": "Bruxa Henilda",
+        "X-OpenRouter-Title": "Bruxa Henilda",
       },
       body: JSON.stringify({
         model: MODEL,
