@@ -17,15 +17,14 @@ const MagicalEffects = () => {
     resize();
     window.addEventListener("resize", resize);
 
-    // Falling stars
-    const stars = Array.from({ length: 35 }, () => ({
+    // Twinkling stars (fixed position, pulsing glow)
+    const stars = Array.from({ length: 40 }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
-      size: Math.random() * 2 + 0.8,
-      speed: Math.random() * 0.8 + 0.3,
-      drift: (Math.random() - 0.5) * 0.5,
-      opacity: Math.random() * 0.5 + 0.2,
+      size: Math.random() * 2.5 + 0.8,
+      speed: Math.random() * 2 + 1,
       phase: Math.random() * Math.PI * 2,
+      maxOpacity: Math.random() * 0.5 + 0.3,
     }));
 
     // Candle flames
@@ -41,28 +40,20 @@ const MagicalEffects = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       t += 0.016;
 
-      // Update & draw falling stars
+      // Draw twinkling stars
       stars.forEach((s) => {
-        s.y += s.speed;
-        s.x += s.drift;
-        const twinkle = (Math.sin(t * 3 + s.phase) + 1) / 2;
-        const alpha = s.opacity * (0.5 + twinkle * 0.5);
-
-        // Reset when off screen
-        if (s.y > canvas.height + 10) {
-          s.y = -10;
-          s.x = Math.random() * canvas.width;
-        }
-        if (s.x < -10) s.x = canvas.width + 10;
-        if (s.x > canvas.width + 10) s.x = -10;
+        const twinkle = (Math.sin(t * s.speed + s.phase) + 1) / 2;
+        const alpha = s.maxOpacity * (0.2 + twinkle * 0.8);
+        const glowSize = s.size * (3 + twinkle * 3);
 
         // Star glow
-        const grad = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.size * 4);
-        grad.addColorStop(0, `rgba(255, 215, 120, ${alpha * 0.6})`);
+        const grad = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, glowSize);
+        grad.addColorStop(0, `rgba(255, 225, 140, ${alpha * 0.7})`);
+        grad.addColorStop(0.4, `rgba(255, 200, 100, ${alpha * 0.3})`);
         grad.addColorStop(1, "rgba(255, 215, 120, 0)");
         ctx.fillStyle = grad;
         ctx.beginPath();
-        ctx.arc(s.x, s.y, s.size * 4, 0, Math.PI * 2);
+        ctx.arc(s.x, s.y, glowSize, 0, Math.PI * 2);
         ctx.fill();
 
         // Star core - 4 pointed
