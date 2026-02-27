@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import WhatsAppButton from "./components/WhatsAppButton";
 import MagicalEffects from "./components/MagicalEffects";
+import InstallPrompt from "./components/InstallPrompt";
 
 import Chat from "./pages/Chat";
 import Grimoire from "./pages/Grimoire";
@@ -35,6 +36,7 @@ const App = () => (
         </Routes>
         <WhatsAppButton />
         <MagicalEffects />
+        <InstallPrompt />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
