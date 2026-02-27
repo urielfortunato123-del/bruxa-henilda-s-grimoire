@@ -30,7 +30,7 @@ const MagicalEffects = () => {
     // Candle flames
     const candleOffsets = Array.from({ length: 5 }, (_, i) => ({
       xPct: 0.1 + (i * 0.2),
-      yOffset: 35 + Math.random() * 15,
+      yOffset: 65 + Math.random() * 15,
     }));
 
     let frame: number;
