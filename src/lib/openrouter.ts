@@ -1,5 +1,5 @@
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
-const MODEL = "google/gemma-3-4b-it:free";
+const MODEL = "qwen/qwen3-coder:free";
 const DEFAULT_KEY = import.meta.env.VITE_OPENROUTER_API_KEY || "";
 
 const SYSTEM_PROMPT = `Você é Bruxa Henilda, uma guia de bruxaria natural e tradicional, acolhedora e firme.
