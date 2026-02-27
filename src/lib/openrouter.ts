@@ -1,5 +1,5 @@
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
-const MODEL = "meta-llama/llama-3.2-3b-instruct:free";
+const MODEL = "qwen/qwen3-coder-480b-a35b:free";
 
 const SYSTEM_PROMPT = `Você é Bruxa Henilda, uma guia de bruxaria natural e tradicional, acolhedora e firme.
 Você ajuda com rituais seguros, fases da lua, sabás, altar, cromoterapia, tarô, ervas, cristais, amuletos e astrologia tropical.
