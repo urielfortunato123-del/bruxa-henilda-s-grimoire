@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import witchImg from "@/assets/flying-witch.png";
+import splashWitch from "@/assets/splash-witch.png";
 
 const SplashScreen = ({ onFinish }: { onFinish: () => void }) => {
   const [visible, setVisible] = useState(true);
@@ -23,12 +23,12 @@ const SplashScreen = ({ onFinish }: { onFinish: () => void }) => {
           className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-background"
         >
           <motion.img
-            src={witchImg}
+            src={splashWitch}
             alt="Bruxa Henilda"
-            className="w-24 h-24 object-contain mb-6"
+            className="w-40 h-40 object-contain mb-6"
             animate={{ y: [0, -15, 0] }}
             transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-            style={{ filter: "drop-shadow(0 0 20px hsl(38 55% 50% / 0.5))" }}
+            style={{ filter: "drop-shadow(0 0 25px hsl(38 55% 50% / 0.5))" }}
           />
           <h1 className="font-cinzel text-xl font-semibold text-primary mb-3">
             Bruxa Henilda
