@@ -42,6 +42,13 @@ const MagicalEffects = () => {
 
       // Draw twinkling stars
       stars.forEach((s) => {
+        // Move down
+        s.y += s.speed * 0.5;
+        if (s.y > canvas.height + 15) {
+          s.y = -15;
+          s.x = Math.random() * canvas.width;
+        }
+
         const twinkle = (Math.sin(t * s.speed + s.phase) + 1) / 2;
         const alpha = s.maxOpacity * (0.3 + twinkle * 0.7);
         const glowSize = s.size * (3 + twinkle * 3);
