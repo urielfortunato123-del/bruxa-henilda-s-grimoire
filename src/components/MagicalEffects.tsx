@@ -18,13 +18,13 @@ const MagicalEffects = () => {
     window.addEventListener("resize", resize);
 
     // Twinkling stars (fixed position, pulsing glow)
-    const stars = Array.from({ length: 40 }, () => ({
+    const stars = Array.from({ length: 50 }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
-      size: Math.random() * 2.5 + 0.8,
-      speed: Math.random() * 2 + 1,
+      size: Math.random() * 4 + 1.5,
+      speed: Math.random() * 2.5 + 1.5,
       phase: Math.random() * Math.PI * 2,
-      maxOpacity: Math.random() * 0.5 + 0.3,
+      maxOpacity: Math.random() * 0.6 + 0.4,
     }));
 
     // Candle flames
@@ -43,14 +43,14 @@ const MagicalEffects = () => {
       // Draw twinkling stars
       stars.forEach((s) => {
         const twinkle = (Math.sin(t * s.speed + s.phase) + 1) / 2;
-        const alpha = s.maxOpacity * (0.2 + twinkle * 0.8);
-        const glowSize = s.size * (3 + twinkle * 3);
+        const alpha = s.maxOpacity * (0.3 + twinkle * 0.7);
+        const glowSize = s.size * (4 + twinkle * 5);
 
         // Star glow
         const grad = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, glowSize);
-        grad.addColorStop(0, `rgba(255, 225, 140, ${alpha * 0.7})`);
-        grad.addColorStop(0.4, `rgba(255, 200, 100, ${alpha * 0.3})`);
-        grad.addColorStop(1, "rgba(255, 215, 120, 0)");
+        grad.addColorStop(0, `rgba(255, 235, 160, ${alpha})`);
+        grad.addColorStop(0.3, `rgba(255, 210, 100, ${alpha * 0.5})`);
+        grad.addColorStop(0.6, `rgba(255, 180, 60, ${alpha * 0.15})`);
         ctx.fillStyle = grad;
         ctx.beginPath();
         ctx.arc(s.x, s.y, glowSize, 0, Math.PI * 2);
