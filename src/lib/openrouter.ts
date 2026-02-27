@@ -1,5 +1,5 @@
 const GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
-const MODEL = "gemini-2.0-flash";
+const MODEL = "gemini-2.5-flash-lite";
 const DEFAULT_KEY = import.meta.env.VITE_GOOGLE_AI_STUDIO_API_KEY || "";
 
 const SYSTEM_PROMPT = `Você é Bruxa Henilda, uma guia de bruxaria natural e tradicional, acolhedora e firme.
