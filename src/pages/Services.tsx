@@ -2,14 +2,23 @@ import { motion } from "framer-motion";
 import { Heart, TrendingUp, Sparkles, Eye, BookOpen, Brain, Phone, Star, Quote } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 
+import imgAmarracao from "@/assets/servico-amarracao.jpg";
+import imgErvas from "@/assets/servico-ervas.jpg";
+import imgPocoes from "@/assets/servico-pocoes.jpg";
+import imgDetox from "@/assets/servico-detox.jpg";
+import imgFinanceiro from "@/assets/servico-financeiro.jpg";
+import imgAulasMagia from "@/assets/servico-aulas-magia.jpg";
+import imgTaro from "@/assets/servico-taro.jpg";
+
 const services = [
-  { icon: Heart, label: "Magia para Amor", desc: "Amarração, reconciliação, atração", color: "text-primary" },
-  { icon: TrendingUp, label: "Crescimento Financeiro", desc: "Prosperidade, abertura de caminhos", color: "text-primary" },
-  { icon: Sparkles, label: "Cura Espiritual", desc: "Limpeza, descarrego, equilíbrio", color: "text-accent" },
-  { icon: Eye, label: "Trabalhos de Vingança", desc: "Justiça, retorno, proteção", color: "text-primary" },
-  { icon: BookOpen, label: "Aulas", desc: "Aprenda bruxaria natural e tradicional", color: "text-accent" },
-  { icon: Brain, label: "Terapias", desc: "Sessões de cura e autoconhecimento", color: "text-accent" },
-  { icon: Eye, label: "Consultas de Tarô", desc: "Leituras personalizadas e orientação", color: "text-primary" },
+  { icon: Heart, label: "Trabalho de Amarração", desc: "Amarração amorosa, reconciliação e atração", price: "R$ 3.000,00", image: imgAmarracao, color: "text-primary" },
+  { icon: TrendingUp, label: "Terapia Vibracional", desc: "Mude sua energia e frequência, mude sua vida financeira", price: "R$ 200,00", detail: "4 sessões por mês", image: imgFinanceiro, color: "text-primary" },
+  { icon: Eye, label: "Tarô Terapêutico", desc: "Sessões de 1h com cartas de tarô para cura, decisões e autoestima", price: "R$ 400,00", image: imgTaro, color: "text-primary" },
+  { icon: BookOpen, label: "Aulas de Magia", desc: "4 aulas por mês · Terapias online", price: "R$ 400,00", detail: "4 sessões por mês", image: imgAulasMagia, color: "text-accent" },
+  { icon: Sparkles, label: "Curso de Ervas na Magia", desc: "Curso de 1 ano: ervas, banhos, poções e incensos naturais", price: "R$ 200,00", image: imgErvas, color: "text-accent" },
+  { icon: Brain, label: "Curso de Poções e Bebidas Mágicas", desc: "Curso de 1 ano · 4 aulas/mês · 1h por semana", price: "R$ 250,00", image: imgPocoes, color: "text-accent" },
+  { icon: Sparkles, label: "Detox Emocional", desc: "Desintoxicando suas emoções", price: "R$ 200,00", detail: "4 sessões por mês com 1h cada", image: imgDetox, color: "text-accent" },
+  { icon: Eye, label: "Cura Espiritual", desc: "Limpeza, descarrego, equilíbrio energético", price: "Sob consulta", color: "text-primary" },
 ];
 
 const container = {
@@ -33,21 +42,35 @@ const Services = () => {
         </div>
 
         {/* Services Grid */}
-        <motion.div variants={container} initial="hidden" animate="show" className="space-y-3">
-          {services.map(({ icon: Icon, label, desc, color }) => (
-            <motion.div
+        <motion.div variants={container} initial="hidden" animate="show" className="space-y-4">
+          {services.map(({ icon: Icon, label, desc, price, detail, image, color }) => (
+            <motion.a
               key={label}
               variants={item}
-              className="glass-card gold-border-glow rounded-xl p-4 flex items-center gap-4"
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="glass-card gold-border-glow rounded-xl overflow-hidden block transition-all hover:scale-[1.01] active:scale-[0.99]"
             >
-              <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center shrink-0">
-                <Icon size={22} className={color} strokeWidth={1.5} />
+              {image && (
+                <div className="w-full h-48 overflow-hidden">
+                  <img src={image} alt={label} className="w-full h-full object-cover object-top" />
+                </div>
+              )}
+              <div className="p-4 flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center shrink-0">
+                  <Icon size={22} className={color} strokeWidth={1.5} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-heading text-sm text-foreground">{label}</p>
+                  <p className="text-xs text-muted-foreground">{desc}</p>
+                  {detail && <p className="text-xs text-muted-foreground mt-0.5">{detail}</p>}
+                </div>
+                <div className="shrink-0 text-right">
+                  <p className="font-heading text-sm text-primary">{price}</p>
+                </div>
               </div>
-              <div>
-                <p className="font-heading text-sm text-foreground">{label}</p>
-                <p className="text-xs text-muted-foreground">{desc}</p>
-              </div>
-            </motion.div>
+            </motion.a>
           ))}
         </motion.div>
 
@@ -56,42 +79,13 @@ const Services = () => {
           <h2 className="font-heading text-sm text-primary tracking-wide text-center">⭐ Depoimentos</h2>
           <motion.div variants={container} initial="hidden" animate="show" className="space-y-3">
             {[
-              {
-                name: "Carla M.",
-                text: "A Henilda mudou minha vida! Fiz o trabalho de amor e em menos de um mês meu relacionamento se transformou completamente. Muito grata! 💗",
-                service: "Magia para Amor",
-                stars: 5,
-              },
-              {
-                name: "Fernanda S.",
-                text: "As consultas de tarô são incríveis. Ela tem uma sensibilidade e uma clareza que nunca vi em nenhum outro profissional. Recomendo de olhos fechados.",
-                service: "Consulta de Tarô",
-                stars: 5,
-              },
-              {
-                name: "Juliana R.",
-                text: "Depois do trabalho de prosperidade, consegui o emprego dos meus sonhos e as dívidas começaram a se resolver. A energia mudou completamente!",
-                service: "Crescimento Financeiro",
-                stars: 5,
-              },
-              {
-                name: "Patrícia L.",
-                text: "As aulas são maravilhosas! Aprendi tanto sobre ervas e cristais. A Henilda ensina com paciência e sabedoria. Me sinto mais conectada com minha espiritualidade.",
-                service: "Aulas",
-                stars: 5,
-              },
-              {
-                name: "Amanda T.",
-                text: "A sessão de cura espiritual foi transformadora. Saí leve, renovada, como se tivessem tirado um peso enorme das minhas costas. Obrigada, Henilda! ✨",
-                service: "Cura Espiritual",
-                stars: 5,
-              },
+              { name: "Carla M.", text: "A Henilda mudou minha vida! Fiz o trabalho de amor e em menos de um mês meu relacionamento se transformou completamente. Muito grata! 💗", service: "Magia para Amor", stars: 5 },
+              { name: "Fernanda S.", text: "As consultas de tarô são incríveis. Ela tem uma sensibilidade e uma clareza que nunca vi em nenhum outro profissional. Recomendo de olhos fechados.", service: "Consulta de Tarô", stars: 5 },
+              { name: "Juliana R.", text: "Depois do trabalho de prosperidade, consegui o emprego dos meus sonhos e as dívidas começaram a se resolver. A energia mudou completamente!", service: "Crescimento Financeiro", stars: 5 },
+              { name: "Patrícia L.", text: "As aulas são maravilhosas! Aprendi tanto sobre ervas e cristais. A Henilda ensina com paciência e sabedoria. Me sinto mais conectada com minha espiritualidade.", service: "Aulas", stars: 5 },
+              { name: "Amanda T.", text: "A sessão de cura espiritual foi transformadora. Saí leve, renovada, como se tivessem tirado um peso enorme das minhas costas. Obrigada, Henilda! ✨", service: "Cura Espiritual", stars: 5 },
             ].map((t) => (
-              <motion.div
-                key={t.name}
-                variants={item}
-                className="glass-card rounded-xl p-4 space-y-2"
-              >
+              <motion.div key={t.name} variants={item} className="glass-card rounded-xl p-4 space-y-2">
                 <div className="flex items-center gap-1">
                   {Array.from({ length: t.stars }).map((_, i) => (
                     <Star key={i} size={12} className="text-primary fill-primary" />
@@ -111,12 +105,7 @@ const Services = () => {
         </div>
 
         {/* Contact CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="space-y-3"
-        >
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="space-y-3">
           <a
             href={whatsappLink}
             target="_blank"
@@ -126,17 +115,13 @@ const Services = () => {
             <Phone size={20} />
             Falar no WhatsApp
           </a>
-
           <div className="glass-card rounded-xl p-4 text-center space-y-2">
             <p className="text-xs text-muted-foreground">Contato direto</p>
-            <a href="tel:+5511972239715" className="font-heading text-lg text-primary">
-              (11) 97223-9715
-            </a>
+            <a href="tel:+5511972239715" className="font-heading text-lg text-primary">(11) 97223-9715</a>
             <p className="text-xs text-muted-foreground">São Paulo — Zona Leste</p>
           </div>
         </motion.div>
       </div>
-
       <BottomNav />
     </div>
   );
