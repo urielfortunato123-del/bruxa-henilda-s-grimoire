@@ -227,7 +227,7 @@ const Profile = () => {
             >
               <div className="flex items-center gap-2">
                 <Key size={16} className="text-primary" />
-                <p className="text-sm text-foreground font-heading">Chave OpenRouter</p>
+                <p className="text-sm text-foreground font-heading">Chave Google AI Studio</p>
               </div>
               <ChevronDown size={16} className={`text-muted-foreground transition-transform ${showApiKey ? "rotate-180" : ""}`} />
             </button>
@@ -235,8 +235,8 @@ const Profile = () => {
               <div className="px-4 pb-4 space-y-3">
                 <p className="text-xs text-muted-foreground">
                   Necessária para o chat com IA. Pegue grátis em{" "}
-                  <a href="https://openrouter.ai/keys" target="_blank" rel="noopener noreferrer" className="text-primary underline">
-                    openrouter.ai/keys
+                  <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer" className="text-primary underline">
+                    aistudio.google.com
                   </a>
                 </p>
                 <div className="flex gap-2">
@@ -244,7 +244,7 @@ const Profile = () => {
                     type="password"
                     value={apiKey}
                     onChange={(e) => setApiKeyState(e.target.value)}
-                    placeholder="sk-or-..."
+                    placeholder="AIza..."
                     className="flex-1 bg-muted text-foreground rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
                   />
                   <button
