@@ -90,102 +90,100 @@ const Chat = () => {
   }, [isStreaming, messages]);
 
   return (
-    <div className="min-h-screen pb-20">
-      <div className="max-w-lg mx-auto px-4 pt-8 space-y-4">
-        {/* Header */}
-        <div className="text-center space-y-1">
-          <h1 className="text-2xl font-heading text-gold-gradient">🔮 Bruxa Henilda</h1>
-          <p className="text-xs text-muted-foreground">
-            {isStreaming ? "✨ Consultando o caldeirão..." : "Sua guia de bruxaria natural"}
-          </p>
-        </div>
+    <div className="min-h-screen flex flex-col pb-16">
+      {/* Header */}
+      <div className="glass-card border-b border-border p-4 text-center sticky top-0 z-40">
+        <h1 className="font-heading text-lg text-gold-gradient">🔮 Bruxa Henilda</h1>
+        <p className="text-xs text-muted-foreground">
+          {isStreaming ? "✨ Consultando o caldeirão..." : "Sua guia de bruxaria natural"}
+        </p>
+      </div>
 
-        {/* API Key warning */}
-        {!hasKey && (
-          <div className="p-3 rounded-xl bg-secondary/80 border border-primary/30 flex items-start gap-2">
-            <AlertCircle size={16} className="text-primary mt-0.5 shrink-0" />
-            <div className="text-xs text-foreground">
-              <p>Para conversar com a IA, adicione sua chave OpenRouter em{" "}
-                <Link to="/perfil" className="text-primary underline">Perfil</Link>.
-              </p>
-            </div>
+      {/* API Key warning */}
+      {!hasKey && (
+        <div className="mx-4 mt-3 p-3 rounded-xl bg-secondary/80 border border-primary/30 flex items-start gap-2">
+          <AlertCircle size={16} className="text-primary mt-0.5 shrink-0" />
+          <div className="text-xs text-foreground">
+            <p>Para conversar com a IA, adicione sua chave OpenRouter em{" "}
+              <Link to="/perfil" className="text-primary underline">Perfil</Link>.
+            </p>
           </div>
-        )}
-
-        {/* Quick chips */}
-        <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
-          {quickChips.map(({ icon: Icon, label, prompt }) => (
-            <button
-              key={label}
-              onClick={() => send(prompt)}
-              disabled={isStreaming}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs whitespace-nowrap glass-card text-foreground hover:gold-border-glow transition-all disabled:opacity-50"
-            >
-              <Icon size={12} />
-              {label}
-            </button>
-          ))}
         </div>
+      )}
 
-        {/* Messages */}
-        <div className="space-y-3">
-          <AnimatePresence>
-            {messages.map((msg) => (
-              <motion.div
-                key={msg.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+      {/* Quick chips */}
+      <div className="flex gap-2 px-4 py-3 overflow-x-auto no-scrollbar">
+        {quickChips.map(({ icon: Icon, label, prompt }) => (
+          <button
+            key={label}
+            onClick={() => send(prompt)}
+            disabled={isStreaming}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs whitespace-nowrap glass-card text-foreground hover:gold-border-glow transition-all disabled:opacity-50"
+          >
+            <Icon size={12} />
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {/* Messages */}
+      <div className="flex-1 overflow-y-auto px-4 space-y-3 py-2">
+        <AnimatePresence>
+          {messages.map((msg) => (
+            <motion.div
+              key={msg.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+            >
+              <div
+                className={`max-w-[85%] rounded-xl px-4 py-3 text-sm leading-relaxed whitespace-pre-line ${
+                  msg.role === "user"
+                    ? "bg-secondary text-secondary-foreground rounded-br-sm"
+                    : "glass-card gold-border-glow text-foreground rounded-bl-sm"
+                }`}
               >
-                <div
-                  className={`max-w-[85%] rounded-xl px-4 py-3 text-sm leading-relaxed whitespace-pre-line ${
-                    msg.role === "user"
-                      ? "bg-secondary text-secondary-foreground rounded-br-sm"
-                      : "glass-card gold-border-glow text-foreground rounded-bl-sm"
-                  }`}
-                >
-                  {msg.content}
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-
-          {error && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
-              <div className="glass-card rounded-xl px-4 py-3 text-sm text-destructive border border-destructive/30 max-w-[85%]">
-                ⚠️ {error}
+                {msg.content}
               </div>
             </motion.div>
-          )}
+          ))}
+        </AnimatePresence>
 
-          <div ref={endRef} />
-        </div>
+        {error && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
+            <div className="glass-card rounded-xl px-4 py-3 text-sm text-destructive border border-destructive/30 max-w-[85%]">
+              ⚠️ {error}
+            </div>
+          </motion.div>
+        )}
 
-        {/* Input */}
-        <div className="sticky bottom-20 glass-card rounded-xl p-3 border border-border">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              send(input);
-            }}
-            className="flex gap-2"
+        <div ref={endRef} />
+      </div>
+
+      {/* Input */}
+      <div className="sticky bottom-16 p-3 glass-card border-t border-border">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            send(input);
+          }}
+          className="flex gap-2 max-w-lg mx-auto"
+        >
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Pergunte à Bruxa Henilda..."
+            disabled={isStreaming}
+            className="flex-1 bg-muted text-foreground rounded-xl px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-60"
+          />
+          <button
+            type="submit"
+            disabled={!input.trim() || isStreaming}
+            className="p-3 rounded-xl mystical-gradient text-primary-foreground disabled:opacity-40 transition-all hover:scale-105 active:scale-95"
           >
-            <input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Pergunte à Bruxa Henilda..."
-              disabled={isStreaming}
-              className="flex-1 bg-muted text-foreground rounded-xl px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-60"
-            />
-            <button
-              type="submit"
-              disabled={!input.trim() || isStreaming}
-              className="p-3 rounded-xl mystical-gradient text-primary-foreground disabled:opacity-40 transition-all hover:scale-105 active:scale-95"
-            >
-              <Send size={18} />
-            </button>
-          </form>
-        </div>
+            <Send size={18} />
+          </button>
+        </form>
       </div>
 
       <BottomNav />
