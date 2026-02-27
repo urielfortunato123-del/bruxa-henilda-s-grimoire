@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Chat from "./pages/Chat";
 import Grimoire from "./pages/Grimoire";
+import GrimoireModule from "./pages/GrimoireModule";
 import LunarCalendar from "./pages/LunarCalendar";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/grimorio" element={<Grimoire />} />
+          <Route path="/grimorio/:module" element={<GrimoireModule />} />
           <Route path="/calendario" element={<LunarCalendar />} />
           <Route path="/perfil" element={<Profile />} />
           <Route path="*" element={<NotFound />} />

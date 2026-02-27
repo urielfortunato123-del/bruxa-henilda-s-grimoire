@@ -5,12 +5,12 @@ import { getMoonPhase, getMoonSign, getAstralClimate, getGreeting } from "@/lib/
 import BottomNav from "@/components/BottomNav";
 
 const quickActions = [
-  { icon: Flame, label: "Rituais", path: "/grimorio", color: "text-primary" },
-  { icon: Sparkles, label: "Tarô", path: "/grimorio", color: "text-primary" },
-  { icon: Star, label: "Astrologia", path: "/grimorio", color: "text-primary" },
-  { icon: Leaf, label: "Ervas", path: "/grimorio", color: "text-accent" },
-  { icon: Gem, label: "Cristais", path: "/grimorio", color: "text-accent" },
-  { icon: Sun, label: "Altar", path: "/grimorio", color: "text-primary" },
+  { icon: Flame, label: "Rituais", path: "/grimorio/rituais", color: "text-primary" },
+  { icon: Sparkles, label: "Tarô", path: "/grimorio/taro", color: "text-primary" },
+  { icon: Star, label: "Astrologia", path: "/grimorio/sabas", color: "text-primary" },
+  { icon: Leaf, label: "Ervas", path: "/grimorio/ervas", color: "text-accent" },
+  { icon: Gem, label: "Cristais", path: "/grimorio/cristais", color: "text-accent" },
+  { icon: Sun, label: "Altar", path: "/grimorio/altar", color: "text-primary" },
 ];
 
 const container = {

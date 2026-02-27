@@ -1,16 +1,17 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Flame, Sun, Palette, Sparkles, Leaf, Gem, Shield, Droplets, BookOpen, Search } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 
 const modules = [
-  { icon: Flame, label: "Rituais", desc: "Práticas e cerimônias", color: "text-primary" },
-  { icon: Sun, label: "Altar", desc: "Montagem e consagração", color: "text-primary" },
-  { icon: Palette, label: "Cromoterapia", desc: "Cores e intenções", color: "text-primary" },
-  { icon: Sparkles, label: "Tarô", desc: "Tiragens e diário", color: "text-primary" },
-  { icon: Leaf, label: "Ervas", desc: "Propriedades e usos", color: "text-accent" },
-  { icon: Gem, label: "Cristais", desc: "Limpeza e energização", color: "text-accent" },
-  { icon: Shield, label: "Amuletos", desc: "Consagração e uso", color: "text-primary" },
-  { icon: Droplets, label: "Banhos", desc: "Receitas e defumações", color: "text-accent" },
+  { icon: Flame, label: "Rituais", desc: "Práticas e cerimônias", color: "text-primary", path: "/grimorio/rituais" },
+  { icon: Sun, label: "Altar", desc: "Montagem e consagração", color: "text-primary", path: "/grimorio/altar" },
+  { icon: Palette, label: "Cromoterapia", desc: "Cores e intenções", color: "text-primary", path: "/grimorio/cromoterapia" },
+  { icon: Sparkles, label: "Tarô", desc: "Tiragens e diário", color: "text-primary", path: "/grimorio/taro" },
+  { icon: Leaf, label: "Ervas", desc: "Propriedades e usos", color: "text-accent", path: "/grimorio/ervas" },
+  { icon: Gem, label: "Cristais", desc: "Limpeza e energização", color: "text-accent", path: "/grimorio/cristais" },
+  { icon: Shield, label: "Amuletos", desc: "Consagração e uso", color: "text-primary", path: "/grimorio/amuletos" },
+  { icon: Droplets, label: "Banhos", desc: "Receitas e defumações", color: "text-accent", path: "/grimorio/banhos" },
 ];
 
 const container = {
@@ -42,19 +43,19 @@ const Grimoire = () => {
 
         {/* Modules */}
         <motion.div variants={container} initial="hidden" animate="show" className="grid grid-cols-2 gap-3">
-          {modules.map(({ icon: Icon, label, desc, color }) => (
-            <motion.button
-              key={label}
-              variants={item}
-              whileTap={{ scale: 0.95 }}
-              className="glass-card rounded-xl p-5 flex flex-col items-center gap-3 text-center transition-all hover:gold-border-glow"
-            >
-              <Icon size={28} className={color} strokeWidth={1.5} />
-              <div>
-                <p className="font-heading text-sm text-foreground">{label}</p>
-                <p className="text-xs text-muted-foreground">{desc}</p>
-              </div>
-            </motion.button>
+          {modules.map(({ icon: Icon, label, desc, color, path }) => (
+            <motion.div key={label} variants={item}>
+              <Link
+                to={path}
+                className="glass-card rounded-xl p-5 flex flex-col items-center gap-3 text-center transition-all hover:gold-border-glow active:scale-95 block"
+              >
+                <Icon size={28} className={color} strokeWidth={1.5} />
+                <div>
+                  <p className="font-heading text-sm text-foreground">{label}</p>
+                  <p className="text-xs text-muted-foreground">{desc}</p>
+                </div>
+              </Link>
+            </motion.div>
           ))}
         </motion.div>
 
@@ -63,13 +64,17 @@ const Grimoire = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="glass-card gold-border-glow rounded-xl p-4 flex items-center gap-4"
         >
-          <BookOpen size={24} className="text-primary" />
-          <div>
-            <p className="font-heading text-sm text-foreground">Roda do Ano</p>
-            <p className="text-xs text-muted-foreground">8 Sabás — Hemisfério Sul</p>
-          </div>
+          <Link
+            to="/grimorio/sabas"
+            className="glass-card gold-border-glow rounded-xl p-4 flex items-center gap-4 block"
+          >
+            <BookOpen size={24} className="text-primary" />
+            <div>
+              <p className="font-heading text-sm text-foreground">Roda do Ano</p>
+              <p className="text-xs text-muted-foreground">8 Sabás — Hemisfério Sul</p>
+            </div>
+          </Link>
         </motion.div>
       </div>
 
