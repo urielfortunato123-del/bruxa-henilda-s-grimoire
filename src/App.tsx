@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -8,7 +8,7 @@ import Index from "./pages/Index";
 import WhatsAppButton from "./components/WhatsAppButton";
 import MagicalEffects from "./components/MagicalEffects";
 import InstallPrompt from "./components/InstallPrompt";
-import SplashScreen from "./components/SplashScreen";
+
 
 import Chat from "./pages/Chat";
 import Grimoire from "./pages/Grimoire";
@@ -21,12 +21,6 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 const App = () => {
-  const [splashDone, setSplashDone] = useState(false);
-
-  if (!splashDone) {
-    return <SplashScreen onFinish={() => setSplashDone(true)} />;
-  }
-
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
