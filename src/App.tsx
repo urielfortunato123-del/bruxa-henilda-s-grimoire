@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import WhatsAppButton from "./components/WhatsAppButton";
+import MagicalEffects from "./components/MagicalEffects";
 
 import Chat from "./pages/Chat";
 import Grimoire from "./pages/Grimoire";
@@ -33,7 +34,7 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
         <WhatsAppButton />
-        
+        <MagicalEffects />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
