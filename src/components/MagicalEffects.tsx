@@ -17,13 +17,14 @@ const MagicalEffects = () => {
     resize();
     window.addEventListener("resize", resize);
 
-    // Stars
-    const stars = Array.from({ length: 25 }, () => ({
+    // Falling stars
+    const stars = Array.from({ length: 35 }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
-      size: Math.random() * 2 + 1,
-      opacity: Math.random(),
-      speed: Math.random() * 0.02 + 0.005,
+      size: Math.random() * 2 + 0.8,
+      speed: Math.random() * 0.8 + 0.3,
+      drift: (Math.random() - 0.5) * 0.5,
+      opacity: Math.random() * 0.5 + 0.2,
       phase: Math.random() * Math.PI * 2,
     }));
 
@@ -40,10 +41,20 @@ const MagicalEffects = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       t += 0.016;
 
-      // Draw twinkling stars
+      // Update & draw falling stars
       stars.forEach((s) => {
-        const twinkle = (Math.sin(t * s.speed * 60 + s.phase) + 1) / 2;
-        const alpha = 0.15 + twinkle * 0.45;
+        s.y += s.speed;
+        s.x += s.drift;
+        const twinkle = (Math.sin(t * 3 + s.phase) + 1) / 2;
+        const alpha = s.opacity * (0.5 + twinkle * 0.5);
+
+        // Reset when off screen
+        if (s.y > canvas.height + 10) {
+          s.y = -10;
+          s.x = Math.random() * canvas.width;
+        }
+        if (s.x < -10) s.x = canvas.width + 10;
+        if (s.x > canvas.width + 10) s.x = -10;
 
         // Star glow
         const grad = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.size * 4);
