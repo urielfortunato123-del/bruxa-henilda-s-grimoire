@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Flame, Sparkles, Star, Leaf, Gem, Sun, MessageCircle } from "lucide-react";
+import { Flame, Sparkles, Star, Leaf, Gem, Sun, MessageCircle, Phone } from "lucide-react";
 import { getMoonPhase, getMoonSign, getAstralClimate, getGreeting } from "@/lib/moon";
 import BottomNav from "@/components/BottomNav";
 
@@ -83,6 +83,22 @@ const Index = () => {
               <span className="text-xs text-foreground">{label}</span>
             </Link>
           ))}
+        </motion.div>
+
+        {/* Services CTA */}
+        <motion.div variants={item}>
+          <Link
+            to="/servicos"
+            className="glass-card gold-border-glow rounded-xl p-4 flex items-center gap-4 transition-all hover:scale-[1.01] active:scale-[0.99]"
+          >
+            <div className="w-12 h-12 rounded-full mystical-gradient flex items-center justify-center shrink-0 gold-glow">
+              <Phone size={20} className="text-primary-foreground" />
+            </div>
+            <div>
+              <p className="font-heading text-sm text-foreground">Trabalhos & Consultas</p>
+              <p className="text-xs text-muted-foreground">Amor · Finanças · Cura · Tarô · Aulas</p>
+            </div>
+          </Link>
         </motion.div>
 
         {/* Next Events */}
