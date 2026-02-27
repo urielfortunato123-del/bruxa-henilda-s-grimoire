@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Flame, Sun, Palette, Sparkles, Leaf, Gem, Shield, Droplets, BookOpen, Search } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
+import grimorioCartas from "@/assets/grimorio-cartas.jpg";
 
 const modules = [
   { icon: Flame, label: "Rituais", desc: "Práticas e cerimônias", color: "text-primary", path: "/grimorio/rituais" },
@@ -26,7 +27,13 @@ const item = {
 const Grimoire = () => {
   return (
     <div className="min-h-screen pb-20">
-      <div className="max-w-lg mx-auto px-4 pt-8 space-y-6">
+      {/* Hero Image */}
+      <div className="relative h-48 overflow-hidden">
+        <img src={grimorioCartas} alt="Grimório antigo com cartas de tarô e cristais" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background" />
+      </div>
+
+      <div className="max-w-lg mx-auto px-4 -mt-8 relative z-10 space-y-6">
         <div className="text-center space-y-1">
           <h1 className="text-2xl font-heading text-gold-gradient">📚 Grimório</h1>
           <p className="text-sm text-muted-foreground">Sua biblioteca mágica pessoal</p>

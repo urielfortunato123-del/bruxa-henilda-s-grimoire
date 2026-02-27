@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Moon, Key, Check } from "lucide-react";
 import { getApiKey, setApiKey } from "@/lib/openrouter";
 import BottomNav from "@/components/BottomNav";
+import cristaisVela from "@/assets/cristais-vela.jpg";
 
 const Profile = () => {
   const [name, setName] = useState("Bruxa");
@@ -20,7 +21,13 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen pb-20">
-      <div className="max-w-lg mx-auto px-4 pt-8 space-y-6">
+      {/* Hero Image */}
+      <div className="relative h-40 overflow-hidden">
+        <img src={cristaisVela} alt="Cristais e vela mística" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background" />
+      </div>
+
+      <div className="max-w-lg mx-auto px-4 -mt-10 relative z-10 space-y-6">
         <div className="text-center space-y-3">
           <div className="w-20 h-20 rounded-full mystical-gradient mx-auto flex items-center justify-center gold-glow">
             <Moon size={32} className="text-primary-foreground" />
