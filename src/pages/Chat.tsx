@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, Flame, Moon, Star, Sparkles, Leaf, Gem, Sun, Palette } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 import { streamChat, getApiKey, type ChatMessage } from "@/lib/openrouter";
 import BottomNav from "@/components/BottomNav";
 
@@ -121,13 +122,17 @@ const Chat = () => {
               className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`max-w-[85%] rounded-xl px-4 py-3 text-sm leading-relaxed whitespace-pre-line ${
+                className={`max-w-[85%] rounded-xl px-4 py-3 text-sm leading-relaxed ${
                   msg.role === "user"
-                    ? "bg-secondary text-secondary-foreground rounded-br-sm"
-                    : "glass-card gold-border-glow text-foreground rounded-bl-sm"
+                    ? "bg-secondary text-secondary-foreground rounded-br-sm whitespace-pre-line"
+                    : "glass-card gold-border-glow text-foreground rounded-bl-sm prose prose-sm prose-invert max-w-none prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5 prose-headings:my-2 prose-code:bg-muted prose-code:px-1 prose-code:rounded prose-pre:bg-muted prose-pre:p-3 prose-pre:rounded-lg prose-strong:text-primary"
                 }`}
               >
-                {msg.content}
+                {msg.role === "user" ? (
+                  msg.content
+                ) : (
+                  <ReactMarkdown>{msg.content}</ReactMarkdown>
+                )}
               </div>
             </motion.div>
           ))}
