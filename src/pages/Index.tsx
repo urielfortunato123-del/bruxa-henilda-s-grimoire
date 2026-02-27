@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Flame, Sparkles, Star, Leaf, Gem, Sun, MessageCircle, Phone } from "lucide-react";
 import { getMoonPhase, getMoonSign, getAstralClimate, getGreeting } from "@/lib/moon";
 import BottomNav from "@/components/BottomNav";
+import altarRitual from "@/assets/altar-ritual.jpg";
 
 const quickActions = [
   { icon: Flame, label: "Rituais", path: "/grimorio/rituais", color: "text-primary" },
@@ -31,11 +32,17 @@ const Index = () => {
 
   return (
     <div className="min-h-screen pb-20">
+      {/* Hero Image */}
+      <div className="relative h-48 overflow-hidden">
+        <img src={altarRitual} alt="Altar místico com velas e ervas" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background" />
+      </div>
+
       <motion.div
         variants={container}
         initial="hidden"
         animate="show"
-        className="max-w-lg mx-auto px-4 pt-8 space-y-5"
+        className="max-w-lg mx-auto px-4 -mt-8 relative z-10 space-y-5"
       >
         {/* Header */}
         <motion.div variants={item} className="text-center space-y-1">

@@ -4,6 +4,7 @@ import { Send, Flame, Moon, Star, Sparkles, Leaf, Gem, Sun, Palette, AlertCircle
 import { streamChat, getApiKey, type ChatMessage } from "@/lib/openrouter";
 import BottomNav from "@/components/BottomNav";
 import { Link } from "react-router-dom";
+import calderaoTaro from "@/assets/caldeirao-taro.jpg";
 
 interface UIMessage {
   id: string;
@@ -51,7 +52,6 @@ const Chat = () => {
     setInput("");
     setIsStreaming(true);
 
-    // Build conversation history for context
     const history: ChatMessage[] = messages
       .filter((m) => m.id !== "welcome")
       .map((m) => ({ role: m.role, content: m.content }));
@@ -92,12 +92,18 @@ const Chat = () => {
 
   return (
     <div className="min-h-screen flex flex-col pb-16">
-      {/* Header */}
-      <div className="glass-card border-b border-border p-4 text-center sticky top-0 z-40">
-        <h1 className="font-heading text-lg text-gold-gradient">🔮 Bruxa Henilda</h1>
-        <p className="text-xs text-muted-foreground">
-          {isStreaming ? "✨ Consultando o caldeirão..." : "Sua guia de bruxaria natural"}
-        </p>
+      {/* Header with background image */}
+      <div className="relative">
+        <div className="absolute inset-0 h-24 overflow-hidden">
+          <img src={calderaoTaro} alt="Caldeirão místico" className="w-full h-full object-cover opacity-30" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />
+        </div>
+        <div className="glass-card border-b border-border p-4 text-center sticky top-0 z-40 relative">
+          <h1 className="font-heading text-lg text-gold-gradient">🔮 Bruxa Henilda</h1>
+          <p className="text-xs text-muted-foreground">
+            {isStreaming ? "✨ Consultando o caldeirão..." : "Sua guia de bruxaria natural"}
+          </p>
+        </div>
       </div>
 
       {/* API Key warning */}
@@ -150,7 +156,6 @@ const Chat = () => {
           ))}
         </AnimatePresence>
 
-        {/* Error */}
         {error && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
             <div className="glass-card rounded-xl px-4 py-3 text-sm text-destructive border border-destructive/30 max-w-[85%]">
