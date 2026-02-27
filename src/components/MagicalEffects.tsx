@@ -28,9 +28,9 @@ const MagicalEffects = () => {
     }));
 
     // Candle flames
-    const candles = Array.from({ length: 4 }, () => ({
-      x: Math.random() * (window.innerWidth - 40) + 20,
-      y: window.innerHeight - 30 - Math.random() * 60,
+    const candleOffsets = Array.from({ length: 5 }, (_, i) => ({
+      xPct: 0.1 + (i * 0.2),
+      yOffset: 35 + Math.random() * 15,
     }));
 
     let frame: number;
@@ -76,27 +76,30 @@ const MagicalEffects = () => {
         ctx.restore();
       });
 
-      // Draw candles
-      candles.forEach((c) => {
+      // Draw candles (always at bottom of viewport)
+      candleOffsets.forEach((c) => {
+        const cx = c.xPct * canvas.width;
+        const cy = canvas.height - c.yOffset;
+
         // Candle body
         ctx.fillStyle = "rgba(180, 140, 100, 0.25)";
         ctx.beginPath();
-        ctx.roundRect(c.x - 4, c.y, 8, 22, 2);
+        ctx.roundRect(cx - 4, cy, 8, 22, 2);
         ctx.fill();
 
         // Wick
         ctx.strokeStyle = "rgba(80, 60, 40, 0.3)";
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.moveTo(c.x, c.y);
-        ctx.lineTo(c.x, c.y - 4);
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx, cy - 4);
         ctx.stroke();
 
         // Flame flicker
-        const flicker = Math.sin(t * 8 + c.x) * 1.5;
-        const flicker2 = Math.cos(t * 6 + c.y) * 1;
-        const fx = c.x + flicker;
-        const fy = c.y - 6;
+        const flicker = Math.sin(t * 8 + cx) * 1.5;
+        const flicker2 = Math.cos(t * 6 + cy) * 1;
+        const fx = cx + flicker;
+        const fy = cy - 6;
 
         // Outer glow
         const glow = ctx.createRadialGradient(fx, fy - 6, 0, fx, fy - 4, 18);
