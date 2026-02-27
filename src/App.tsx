@@ -8,6 +8,7 @@ import Chat from "./pages/Chat";
 import Grimoire from "./pages/Grimoire";
 import GrimoireModule from "./pages/GrimoireModule";
 import LunarCalendar from "./pages/LunarCalendar";
+import Services from "./pages/Services";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/grimorio" element={<Grimoire />} />
           <Route path="/grimorio/:module" element={<GrimoireModule />} />
           <Route path="/calendario" element={<LunarCalendar />} />
+          <Route path="/servicos" element={<Services />} />
           <Route path="/perfil" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
