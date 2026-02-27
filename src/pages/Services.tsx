@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Heart, TrendingUp, Sparkles, Eye, BookOpen, Brain, Phone } from "lucide-react";
+import { Heart, TrendingUp, Sparkles, Eye, BookOpen, Brain, Phone, Star, Quote } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 
 const services = [
@@ -50,6 +50,65 @@ const Services = () => {
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Testimonials */}
+        <div className="space-y-3">
+          <h2 className="font-heading text-sm text-primary tracking-wide text-center">⭐ Depoimentos</h2>
+          <motion.div variants={container} initial="hidden" animate="show" className="space-y-3">
+            {[
+              {
+                name: "Carla M.",
+                text: "A Henilda mudou minha vida! Fiz o trabalho de amor e em menos de um mês meu relacionamento se transformou completamente. Muito grata! 💗",
+                service: "Magia para Amor",
+                stars: 5,
+              },
+              {
+                name: "Fernanda S.",
+                text: "As consultas de tarô são incríveis. Ela tem uma sensibilidade e uma clareza que nunca vi em nenhum outro profissional. Recomendo de olhos fechados.",
+                service: "Consulta de Tarô",
+                stars: 5,
+              },
+              {
+                name: "Juliana R.",
+                text: "Depois do trabalho de prosperidade, consegui o emprego dos meus sonhos e as dívidas começaram a se resolver. A energia mudou completamente!",
+                service: "Crescimento Financeiro",
+                stars: 5,
+              },
+              {
+                name: "Patrícia L.",
+                text: "As aulas são maravilhosas! Aprendi tanto sobre ervas e cristais. A Henilda ensina com paciência e sabedoria. Me sinto mais conectada com minha espiritualidade.",
+                service: "Aulas",
+                stars: 5,
+              },
+              {
+                name: "Amanda T.",
+                text: "A sessão de cura espiritual foi transformadora. Saí leve, renovada, como se tivessem tirado um peso enorme das minhas costas. Obrigada, Henilda! ✨",
+                service: "Cura Espiritual",
+                stars: 5,
+              },
+            ].map((t) => (
+              <motion.div
+                key={t.name}
+                variants={item}
+                className="glass-card rounded-xl p-4 space-y-2"
+              >
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: t.stars }).map((_, i) => (
+                    <Star key={i} size={12} className="text-primary fill-primary" />
+                  ))}
+                </div>
+                <div className="flex items-start gap-2">
+                  <Quote size={14} className="text-primary shrink-0 mt-0.5 rotate-180" />
+                  <p className="text-sm text-foreground leading-relaxed italic">{t.text}</p>
+                </div>
+                <div className="flex items-center justify-between">
+                  <p className="text-xs font-heading text-foreground">{t.name}</p>
+                  <p className="text-[10px] text-muted-foreground">{t.service}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
 
         {/* Contact CTA */}
         <motion.div
