@@ -21,10 +21,10 @@ const MagicalEffects = () => {
     const stars = Array.from({ length: 50 }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
-      size: Math.random() * 4 + 1.5,
-      speed: Math.random() * 2.5 + 1.5,
+      size: Math.random() * 3 + 1,
+      speed: Math.random() * 2 + 1,
       phase: Math.random() * Math.PI * 2,
-      maxOpacity: Math.random() * 0.6 + 0.4,
+      maxOpacity: Math.random() * 0.4 + 0.2,
     }));
 
     // Candle flames
@@ -44,7 +44,7 @@ const MagicalEffects = () => {
       stars.forEach((s) => {
         const twinkle = (Math.sin(t * s.speed + s.phase) + 1) / 2;
         const alpha = s.maxOpacity * (0.3 + twinkle * 0.7);
-        const glowSize = s.size * (4 + twinkle * 5);
+        const glowSize = s.size * (3 + twinkle * 3);
 
         // Star glow
         const grad = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, glowSize);
