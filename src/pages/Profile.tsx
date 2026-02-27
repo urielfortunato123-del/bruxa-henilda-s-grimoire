@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Moon, Key, Check, ChevronDown } from "lucide-react";
+import { Moon, Key, Check, ChevronDown, Lock, LogOut } from "lucide-react";
 import { getApiKey, setApiKey } from "@/lib/openrouter";
 import BottomNav from "@/components/BottomNav";
 import cristaisVela from "@/assets/cristais-vela.jpg";
+
+const PROFILE_PIN_KEY = "henilda_profile_pin";
+const PROFILE_AUTH_KEY = "henilda_profile_auth";
 
 const Profile = () => {
   const [name, setName] = useState("Bruxa");
@@ -14,11 +17,130 @@ const Profile = () => {
   const [keySaved, setKeySaved] = useState(false);
   const [showApiKey, setShowApiKey] = useState(false);
 
+  // Auth state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [pin, setPin] = useState("");
+  const [confirmPin, setConfirmPin] = useState("");
+  const [isFirstAccess, setIsFirstAccess] = useState(false);
+  const [authError, setAuthError] = useState("");
+
+  useEffect(() => {
+    const savedPin = localStorage.getItem(PROFILE_PIN_KEY);
+    const sessionAuth = sessionStorage.getItem(PROFILE_AUTH_KEY);
+    setIsFirstAccess(!savedPin);
+    if (sessionAuth === "true") setIsAuthenticated(true);
+  }, []);
+
+  const handleSetPin = () => {
+    if (pin.length < 4) {
+      setAuthError("A senha deve ter pelo menos 4 caracteres");
+      return;
+    }
+    if (pin !== confirmPin) {
+      setAuthError("As senhas não coincidem");
+      return;
+    }
+    localStorage.setItem(PROFILE_PIN_KEY, btoa(pin));
+    sessionStorage.setItem(PROFILE_AUTH_KEY, "true");
+    setIsAuthenticated(true);
+    setAuthError("");
+  };
+
+  const handleLogin = () => {
+    const savedPin = localStorage.getItem(PROFILE_PIN_KEY);
+    if (savedPin && btoa(pin) === savedPin) {
+      sessionStorage.setItem(PROFILE_AUTH_KEY, "true");
+      setIsAuthenticated(true);
+      setAuthError("");
+    } else {
+      setAuthError("Senha incorreta ✨");
+    }
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem(PROFILE_AUTH_KEY);
+    setIsAuthenticated(false);
+    setPin("");
+  };
+
   const saveKey = () => {
     setApiKey(apiKey.trim());
     setKeySaved(true);
     setTimeout(() => setKeySaved(false), 2000);
   };
+
+  // Login / First Access Screen
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen pb-20">
+        <div className="relative h-40 overflow-hidden">
+          <img src={cristaisVela} alt="Cristais e vela mística" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background" />
+        </div>
+
+        <div className="max-w-lg mx-auto px-4 -mt-10 relative z-10 space-y-6">
+          <div className="text-center space-y-3">
+            <div className="w-20 h-20 rounded-full mystical-gradient mx-auto flex items-center justify-center gold-glow">
+              <Lock size={32} className="text-primary-foreground" />
+            </div>
+            <h1 className="text-2xl font-heading text-gold-gradient">
+              {isFirstAccess ? "Criar Acesso" : "Acesso Restrito"}
+            </h1>
+            <p className="text-xs text-muted-foreground">
+              {isFirstAccess
+                ? "Crie uma senha para proteger seu perfil"
+                : "Somente Henilda pode acessar 🔮"}
+            </p>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-4"
+          >
+            <div className="space-y-2">
+              <label className="text-xs font-heading text-primary tracking-wide">Senha</label>
+              <input
+                type="password"
+                value={pin}
+                onChange={(e) => { setPin(e.target.value); setAuthError(""); }}
+                placeholder="Digite sua senha..."
+                className="w-full bg-muted text-foreground rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+                onKeyDown={(e) => !isFirstAccess && e.key === "Enter" && handleLogin()}
+              />
+            </div>
+
+            {isFirstAccess && (
+              <div className="space-y-2">
+                <label className="text-xs font-heading text-primary tracking-wide">Confirmar Senha</label>
+                <input
+                  type="password"
+                  value={confirmPin}
+                  onChange={(e) => { setConfirmPin(e.target.value); setAuthError(""); }}
+                  placeholder="Confirme sua senha..."
+                  className="w-full bg-muted text-foreground rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+                  onKeyDown={(e) => e.key === "Enter" && handleSetPin()}
+                />
+              </div>
+            )}
+
+            {authError && (
+              <p className="text-xs text-destructive text-center">{authError}</p>
+            )}
+
+            <button
+              onClick={isFirstAccess ? handleSetPin : handleLogin}
+              className="w-full py-3 rounded-xl mystical-gradient text-primary-foreground text-sm font-heading transition-all hover:scale-[1.02] active:scale-95"
+            >
+              {isFirstAccess ? "Criar Acesso 🌙" : "Entrar 🔮"}
+            </button>
+          </motion.div>
+        </div>
+
+        <BottomNav />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen pb-20">
@@ -135,6 +257,15 @@ const Profile = () => {
               </div>
             )}
           </div>
+
+          {/* Logout */}
+          <button
+            onClick={handleLogout}
+            className="w-full py-3 rounded-xl border border-destructive/30 text-destructive text-sm font-heading flex items-center justify-center gap-2 transition-all hover:bg-destructive/10 active:scale-95"
+          >
+            <LogOut size={16} />
+            Sair do Perfil
+          </button>
         </motion.div>
       </div>
 
