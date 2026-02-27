@@ -1,9 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Flame, Moon, Star, Sparkles, Leaf, Gem, Sun, Palette, AlertCircle } from "lucide-react";
+import { Send, Flame, Moon, Star, Sparkles, Leaf, Gem, Sun, Palette } from "lucide-react";
 import { streamChat, getApiKey, type ChatMessage } from "@/lib/openrouter";
 import BottomNav from "@/components/BottomNav";
-import { Link } from "react-router-dom";
 
 interface UIMessage {
   id: string;
@@ -31,16 +30,12 @@ const Chat = () => {
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [hasKey, setHasKey] = useState(!!getApiKey());
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isStreaming]);
 
-  useEffect(() => {
-    setHasKey(!!getApiKey());
-  }, []);
 
   const send = useCallback(async (text: string) => {
     if (!text.trim() || isStreaming) return;
@@ -99,17 +94,6 @@ const Chat = () => {
         </p>
       </div>
 
-      {/* API Key warning */}
-      {!hasKey && (
-        <div className="mx-4 mt-3 p-3 rounded-xl bg-secondary/80 border border-primary/30 flex items-start gap-2">
-          <AlertCircle size={16} className="text-primary mt-0.5 shrink-0" />
-          <div className="text-xs text-foreground">
-            <p>Para conversar com a IA, adicione sua chave OpenRouter em{" "}
-              <Link to="/perfil" className="text-primary underline">Perfil</Link>.
-            </p>
-          </div>
-        </div>
-      )}
 
       {/* Quick chips */}
       <div className="flex gap-2 px-4 py-3 overflow-x-auto no-scrollbar">
