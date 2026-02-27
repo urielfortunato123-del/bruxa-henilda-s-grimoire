@@ -1,0 +1,16 @@
+{
+  "name": "Bruxa Henilda",
+  "short_name": "Henilda",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D0A14",
+  "theme_color": "#0D0A14",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}
