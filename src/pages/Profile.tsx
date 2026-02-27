@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Moon } from "lucide-react";
+import { Moon, Key, Check } from "lucide-react";
+import { getApiKey, setApiKey } from "@/lib/openrouter";
 import BottomNav from "@/components/BottomNav";
 
 const Profile = () => {
@@ -8,6 +9,14 @@ const Profile = () => {
   const [city, setCity] = useState("São Paulo - Zona Leste");
   const [hemisphere, setHemisphere] = useState<"south" | "north">("south");
   const [discrete, setDiscrete] = useState(false);
+  const [apiKey, setApiKeyState] = useState(getApiKey() || "");
+  const [keySaved, setKeySaved] = useState(false);
+
+  const saveKey = () => {
+    setApiKey(apiKey.trim());
+    setKeySaved(true);
+    setTimeout(() => setKeySaved(false), 2000);
+  };
 
   return (
     <div className="min-h-screen pb-20">
@@ -78,6 +87,34 @@ const Profile = () => {
                 }`}
               />
             </button>
+          </div>
+          {/* OpenRouter API Key */}
+          <div className="glass-card gold-border-glow rounded-xl p-4 space-y-3">
+            <div className="flex items-center gap-2">
+              <Key size={16} className="text-primary" />
+              <p className="text-sm text-foreground font-heading">Chave OpenRouter</p>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Necessária para o chat com IA. Pegue grátis em{" "}
+              <a href="https://openrouter.ai/keys" target="_blank" rel="noopener noreferrer" className="text-primary underline">
+                openrouter.ai/keys
+              </a>
+            </p>
+            <div className="flex gap-2">
+              <input
+                type="password"
+                value={apiKey}
+                onChange={(e) => setApiKeyState(e.target.value)}
+                placeholder="sk-or-..."
+                className="flex-1 bg-muted text-foreground rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+              />
+              <button
+                onClick={saveKey}
+                className="px-4 py-3 rounded-xl mystical-gradient text-primary-foreground text-sm transition-all hover:scale-105 active:scale-95"
+              >
+                {keySaved ? <Check size={16} /> : "Salvar"}
+              </button>
+            </div>
           </div>
         </motion.div>
       </div>
